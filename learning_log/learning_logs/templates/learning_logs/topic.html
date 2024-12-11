@@ -1,0 +1,29 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+
+<p>Topic: {{ topic }}</p>
+
+<p>Entries:</p>
+<p>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}">Adicionar Novo TópicoS</a>
+</p>
+    
+<ul>
+    {% for entry in entries %}
+        <li>
+            <p>{{ entry.date_added|date:"Md, Y H:i" }}</p>
+
+            <p>{{ entry.text|linebreaks }}</p>
+            <p>
+                <a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a>
+            </p>
+        </li>
+    {% empty %}
+        <li>
+            Não há entradas para este tópico até agora.
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
